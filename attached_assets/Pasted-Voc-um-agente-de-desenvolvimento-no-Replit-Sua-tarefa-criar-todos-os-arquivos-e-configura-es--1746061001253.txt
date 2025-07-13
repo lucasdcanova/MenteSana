@@ -1,0 +1,50 @@
+Você é um agente de desenvolvimento no Replit. Sua tarefa é criar todos os arquivos e configurações na pasta `/iOS` do repositório para transformar este aplicativo web (React + TypeScript + TailwindCSS + Framer Motion + React Query, com back-end em Node.js/Express e PostgreSQL) em um app nativo iOS imediatamente executável no Xcode. Siga estes passos:
+
+1. Instalar Capacitor:
+   - Executar `npm install @capacitor/core @capacitor/cli --save`.
+2. Inicializar o projeto Capacitor:
+   - `npx cap init MindWell com.suaempresa.mindwell --web-dir build`
+   - Certifique-se de que o build web já esteja gerado (`npm run build`).
+3. Adicionar plataforma iOS:
+   - `npx cap add ios`
+   - Isso criará a pasta `/iOS/App` com o projeto Xcode.
+4. Configurar permissões e Info.plist:
+   - Em `/iOS/App/App/App/Info.plist`, adicionar chaves:
+     ```xml
+     <key>NSMicrophoneUsageDescription</key>
+     <string>Permite gravar áudios para diário terapêutico</string>
+     <key>NSCameraUsageDescription</key>
+     <string>Permite anexar fotos para análise de sentimentos</string>
+     ```
+5. Instalar pods:
+   - Navegar até `/iOS/App/App` e rodar `pod install`.
+6. Ajustar AppDelegate:
+   - Em `/iOS/App/App/App/AppDelegate.swift`, garantir inicialização do Capacitor:
+     ```swift
+     import UIKit
+     import Capacitor
+
+     @UIApplicationMain
+     class AppDelegate: UIResponder, UIApplicationDelegate {
+       var window: UIWindow?
+       func application(_ application: UIApplication,
+         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+         let capacitorBridge = CAPBridgeViewController();
+         window = UIWindow(frame: UIScreen.main.bounds)
+         window?.rootViewController = capacitorBridge
+         window?.makeKeyAndVisible()
+         return true
+       }
+     }
+     ```
+7. Copiar assets web para iOS:
+   - Após build web (`npm run build`), rodar `npx cap copy ios`.
+8. Abrir e rodar no Xcode:
+   - `npx cap open ios`
+   - No Xcode, selecionar target “App” e executar no simulador ou dispositivo.
+9. Verificar:
+   - O app deve iniciar no simulador, exibir a interface React nativa e permitir gravação de áudio.
+10. Comitar e push:
+   - Comitar a pasta `/iOS` e as alterações de configuração.
+
+Ao final, o diretório `/iOS` conterá o projeto nativo completo, pronto para abrir e rodar no Xcode sem etapas manuais adicionais.

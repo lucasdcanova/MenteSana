@@ -1,0 +1,1480 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* Importação dos estilos específicos para iOS */
+@import './styles/ios-styles.css';
+/* Importação das correções de rolagem */
+@import './styles/scroll-fix.css';
+/* Importação das correções avançadas de rolagem para conversão nativa */
+@import './styles/scroll-fix-advanced.css';
+/* Importação das correções específicas para páginas problemáticas */
+@import './styles/special-pages-fix.css';
+/* Importação das otimizações específicas para rolagem e toque iOS */
+@import './styles/ios-scroll-optimization.css';
+/* Importação das correções de interação de toque iOS */
+@import './styles/ios-touch-fix.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Classes de otimização para transições e animações */
+.hardware-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+}
+
+.smooth-transitions {
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix para o erro de sobreposição em cards */
+.card p > div {
+  display: inline-block;
+}
+
+/* Otimizações específicas para iOS */
+.ios-page-container {
+  transform: translate3d(0, 0, 0);
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  max-width: 100%;
+  overscroll-behavior-y: none;
+  overflow-x: hidden;
+}
+
+/* Ajuste de scroll para dispositivos iOS */
+.ios-scroll-fix {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Melhor contraste e visibilidade para texto */
+.improved-readability {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Definindo variáveis de cor do Mindwell */
+:root {
+  /* Paleta de cores Mindwell */
+  --mindwell-primary: #6C8EFF; /* Azul Nevoeiro */
+  --mindwell-secondary: #C3BFFF; /* Lilás Névoa */
+  --mindwell-accent: #A8E6CF; /* Verde Mentha */
+  --mindwell-text: #2F2F2F; /* Cinza Escuro */
+  --mindwell-text-light: #666666; /* Cinza Médio */
+  --mindwell-background: #FFFFFF; /* Branco */
+  
+  /* RGB versions for rgba() usage */
+  --mindwell-primary-rgb: 108, 142, 255;
+  --mindwell-secondary-rgb: 195, 191, 255;
+  --mindwell-accent-rgb: 168, 230, 207;
+  
+  /* Legacy variable kept for backward compatibility */
+  --ios-primary-rgb: 108, 142, 255; /* Versão RGB da cor primária para uso com rgba() */
+}
+
+/* Configurações para modo escuro */
+.dark {
+  --ios-background-color: #121212;
+  --ios-card-background: rgba(30, 30, 30, 0.8);
+  --ios-primary-color: #4fdbc8;
+  
+  color-scheme: dark;
+  @apply bg-gray-950 text-gray-100;
+}
+
+.dark body {
+  @apply bg-gray-950 text-gray-100;
+}
+
+.dark .ios-card {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.dark .ios-card-glass {
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(10px);
+  @apply border-gray-800;
+}
+
+/* Estilização específica para elementos no modo escuro */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  @apply text-gray-100;
+}
+
+.dark p {
+  @apply text-gray-200;
+}
+
+.dark .text-gray-900 {
+  @apply text-gray-100;
+}
+
+.dark .text-gray-800 {
+  @apply text-gray-200;
+}
+
+.dark .text-gray-700 {
+  @apply text-gray-300;
+}
+
+.dark .text-gray-600 {
+  @apply text-gray-400;
+}
+
+.dark .text-gray-500 {
+  @apply text-gray-400;
+}
+
+.dark .border-gray-100, .dark .border-gray-200 {
+  @apply border-gray-800;
+}
+
+.dark .bg-white, .dark .bg-gray-50 {
+  @apply bg-gray-900;
+}
+
+.dark .bg-gray-100 {
+  @apply bg-gray-800;
+}
+
+.dark select, .dark input, .dark textarea {
+  @apply bg-gray-800 border-gray-700 text-gray-100;
+}
+
+.dark select option {
+  @apply bg-gray-800 text-gray-100;
+}
+
+/* Classes para tamanhos de fonte */
+html[data-font-size="small"] {
+  font-size: 14px;
+}
+
+html[data-font-size="medium"] {
+  font-size: 16px;
+}
+
+html[data-font-size="large"] {
+  font-size: 18px;
+}
+
+html[data-font-size="extraLarge"] {
+  font-size: 20px;
+}
+
+/* Estilos para PWA em iOS */
+
+/* Ajuste para altura de viewport no iOS */
+:root {
+  --vh: 1vh;
+  
+  /* Variáveis semânticas do iOS */
+  --ios-primary-color: #6C8EFF; /* Azul Nevoeiro */
+  --ios-primary-light: #C3BFFF; /* Lilás Névoa */
+  
+  /* Insets seguros para iOS */
+  --safe-area-inset-top: 0px;
+  --safe-area-inset-bottom: 0px;
+  --safe-area-inset-left: 0px;
+  --safe-area-inset-right: 0px;
+  
+  /* iOS Color Tokens */
+  --ios-primary-rgb: 108, 142, 255; /* Azul Nevoeiro RGB */
+  --ios-secondary-color: #0070f3;
+  --ios-secondary-rgb: 0, 112, 243;
+  --ios-success-color: #34c759;
+  --ios-warning-color: #ff9500;
+  --ios-error-color: #ff3b30;
+  --ios-background-color: #f9fafb;
+  --ios-card-background: rgba(255, 255, 255, 0.8);
+  --ios-safe-area-top: env(safe-area-inset-top);
+  --ios-safe-area-bottom: env(safe-area-inset-bottom);
+  
+  /* Fontes do sistema iOS */
+  --ios-system-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --ios-display-font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --ios-rounded-font: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', system-ui, sans-serif;
+  --ios-mono-font: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
+  
+  /* Transições de iOS com timing functions nativas */
+  --ios-transition-standard: 0.35s cubic-bezier(0.28, 0.8, 0.34, 1);
+  --ios-transition-fast: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Aplicar otimizações específicas para dispositivos iOS */
+html.ios-device {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: 100%;
+  user-select: none;
+}
+
+/* Melhorar interatividade nos elementos clicáveis em iOS */
+html.ios-device button,
+html.ios-device .ios-button,
+html.ios-device [role="button"],
+html.ios-device a {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Melhorar o foco e feedback visual em iOS */
+html.ios-device button:active,
+html.ios-device .ios-button:active,
+html.ios-device [role="button"]:active,
+html.ios-device a:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+/* Seletor mais específico para o wrapper de correção iOS */
+.ios-touch-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+}
+
+/* Garantir que os eventos de toque funcionem em iOS */
+.ios-touch-fix {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Aplicar altura responsiva para dispositivos móveis */
+.full-height {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Estilos para o modo PWA */
+.pwa-mode {
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Estilos específicos para iOS como PWA */
+.ios-pwa {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Ajuste para o indicador de home no iPhone X+ */
+.ios-has-home-indicator {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Ajuste para a barra de status no iOS */
+.ios-pwa .fixed-header {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Impedir o comportamento de bounce/overscroll no Safari */
+html, body {
+  overscroll-behavior-y: none;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animações para menus e transições de página estilo iOS */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.35s cubic-bezier(0.28, 0.8, 0.34, 1) forwards;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.35s cubic-bezier(0.28, 0.8, 0.34, 1) forwards;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.animate-slide-out-right {
+  animation: slideOutRight 0.35s cubic-bezier(0.28, 0.8, 0.34, 1) forwards;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.animate-slide-out-left {
+  animation: slideOutLeft 0.35s cubic-bezier(0.28, 0.8, 0.34, 1) forwards;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Configuração do elemento raiz para otimização iOS */
+#root {
+  overflow-y: auto;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Utilitários específicos para rolagem em iOS */
+.ios-scroll-fix {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overflow-y: auto;
+  height: 100%;
+  min-height: 100vh;
+  overscroll-behavior-y: contain;
+  position: relative;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transform: translateZ(0);
+}
+
+/* Animação do indicador de progresso estilo iOS */
+@keyframes progress-infinite {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-progress-infinite {
+  animation: progress-infinite 1.5s linear infinite;
+}
+
+/* Animação específica para o indicador de gravação estilo iOS */
+@keyframes ios-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+}
+
+/* Animação para fade in de elementos estilo iOS */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animação para fade-in com deslocamento de baixo para cima */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fixar elementos na posição correta em modo app */
+.fixed-bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.fixed-top-nav {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Evitar que o toque destaque elementos em iOS */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Estilo para rolagem suave em elementos iOS */
+.ios-momentum-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+}
+
+@layer base {
+  :root {
+    --bottom-nav-height: 56px;
+    
+    /* Cores iOS System - Apple Human Interface Guidelines */
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 226 100% 71%; /* Azul Nevoeiro - Mindwell primary color */
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 162 76% 96%; /* Accent SF Mint-Green claro */
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 355 100% 50%; /* SF Red */
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 226 100% 71%;
+    --radius: 1rem; /* SF Rounded corners */
+    
+    /* RGB values for JS interactions */
+    --ios-primary-rgb: 108, 142, 255; /* Azul Nevoeiro RGB */
+    
+    /* iOS System Colors (SF) */
+    --ios-blue: 211 100% 50%;
+    --ios-green: 142 76% 36%;
+    --ios-indigo: 231 48% 48%;
+    --ios-orange: 14 100% 57%;
+    --ios-pink: 340 82% 59%;
+    --ios-purple: 262 47% 55%;
+    --ios-red: 355 100% 50%;
+    --ios-teal: 180 100% 39%;
+    --ios-yellow: 47 93% 50%;
+    
+    /* iOS System Shadows */
+    --ios-shadow-xs: 0 2px 5px rgba(0, 0, 0, 0.02), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+    --ios-shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.03), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+    --ios-shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    --ios-shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    
+    /* iOS Easing Curves */
+    --ios-ease: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    --ios-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+    --ios-spring: cubic-bezier(0.47, 0.23, 0.26, 0.94);
+    --ios-spring-bounce: cubic-bezier(0.48, 0.28, 0.18, 1.15);
+  }
+  
+  .dark {
+    /* iOS Dark Mode Colors */
+    --background: 215 27.9% 9%;
+    --foreground: 210 20% 98%;
+    --card: 215 28% 12%;
+    --card-foreground: 210 20% 98%;
+    --popover: 215 27.9% 9%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 226 90% 65%; /* Versão escura do Azul Nevoeiro */
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 162 60% 20%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 355 90% 60%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 226 90% 65%;
+  }
+  
+  * {
+    @apply border-border;
+    /* Otimizações iOS */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+  }
+  
+  /* Classes para safe areas do iOS */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left, 0px);
+  }
+  
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  
+  /* Aliases para padronização conforme novo padrão */
+  .pt-safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  
+  .pb-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  
+  /* Classes que adicionam margens para dispositivos com notch */
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  
+  /* Classe para elementos com aceleração de hardware */
+  .hardware-accelerated {
+    transform: translateZ(0);
+    /* using lowercase willchange to avoid React warning */
+    willchange: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Impedir toques fantasmas em elementos clicáveis */
+  .prevent-ghost-tap {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Otimizar scrolling suave em iOS */
+  .ios-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+    height: -webkit-fill-available;
+    touch-action: manipulation;
+    /* Necessário para evitar problemas de rolagem em iOS com elementos fixos */
+    overflow-x: hidden;
+    /* Melhora o scrolling em todos os dispositivos */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased bg-primary/20 text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    height: 100vh; /* Altura fixa para toda a tela */
+    height: -webkit-fill-available;
+    overscroll-behavior-y: none; /* Evita bouncing em iOS */
+    -webkit-overflow-scrolling: touch; /* Scroll suave em iOS */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    /* Impede comportamento elástico em iOS Safari fixando o body */
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-slate-800 tracking-tight;
+  }
+
+  /* Melhorias para evitar seleção indesejada em dispositivos móveis */
+  button, a, .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  /* Corrigir problemas de clique/toque em iOS */
+  input, button, select, textarea, a {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Melhoria para rolagem suave nos elementos */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Classes para animações e transições de componentes nativos iOS */
+  .ios-card {
+    @apply bg-white rounded-2xl p-4 shadow-sm border border-gray-100/80;
+    transition: all 0.35s cubic-bezier(0.28, 0.8, 0.34, 1);
+    transform: translateZ(0); /* Força aceleração de hardware */
+    backface-visibility: hidden; /* Evita glitches em iOS */
+    will-change: transform, box-shadow; /* Avisa o browser sobre propriedades que vão mudar */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .ios-button {
+    @apply rounded-xl font-medium text-[15px] flex items-center justify-center;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    appearance: none;
+    outline: none;
+  }
+  
+  .ios-button:active {
+    transform: scale(0.97);
+  }
+  
+  .ios-button-primary {
+    @apply bg-primary text-white;
+    box-shadow: 0 4px 12px rgba(var(--ios-primary-rgb), 0.25);
+  }
+  
+  .ios-button-secondary {
+    @apply bg-white text-slate-800 border border-slate-100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .ios-input {
+    @apply rounded-xl border border-gray-200 bg-white px-4 py-3 text-[15px];
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  
+  .ios-input:focus {
+    @apply ring-2 ring-primary/20 border-primary/50;
+    outline: none;
+  }
+  
+  .card-button {
+    @apply bg-white rounded-xl p-4 shadow-sm flex flex-col gap-2;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateZ(0); /* Força aceleração de hardware */
+    backface-visibility: hidden; /* Evita glitches em iOS */
+    will-change: transform, box-shadow; /* Avisa o browser sobre propriedades que vão mudar */
+  }
+
+  .card-button:active {
+    transform: scale(0.97);
+    transition: transform 0.2s ease;
+  }
+
+  .card-title {
+    @apply text-xl font-bold text-slate-800;
+  }
+
+  .card-description {
+    @apply text-sm text-slate-600;
+  }
+
+  .bottom-nav-button {
+    @apply bg-slate-800 rounded-full p-3 text-white flex items-center justify-center;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .app-container {
+    @apply max-w-md mx-auto bg-primary/20 min-h-screen flex flex-col relative;
+    /* O conteúdo será ajustado pelo page-content, não precisamos de padding-bottom aqui */
+  }
+  
+  /* Garante que o conteúdo das páginas tenha padding adequado */
+  .page-content {
+    @apply flex-1;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 64px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px); /* Aumentado para garantir mais espaço em dispositivos móveis */
+  }
+  
+  /* Melhoria para rolagem de tela cheia em dispositivos móveis */
+  .fullscreen-mobile {
+    height: 100vh; /* Fallback */
+    height: calc(var(--vh, 1vh) * 100);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  
+  /* Classes para conteúdos que rolam independentes */
+  .scrollable-content {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    /* Altura calculada automaticamente com base no container pai */
+    flex: 1;
+    position: relative;
+  }
+
+  /* Classe para containers que precisam ter rolagem com altura fixa */
+  .fixed-height-container {
+    max-height: 70vh; /* Fallback */
+    max-height: calc(var(--vh, 1vh) * 70);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Classes para rotas com tela cheia em dispositivos móveis */
+  .mobile-fullscreen {
+    min-height: 100vh; /* Fallback */
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex; 
+    flex-direction: column;
+  }
+  
+  /* Classes específicas para dispositivos iOS */
+  .ios-device {
+    /* Evita o comportamento elástico ao arrastar */
+    overscroll-behavior-y: none;
+    /* Impede que o conteúdo seja selecionado no iOS */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Quando o app está rodando em modo standalone (PWA) no iOS */
+  .ios-standalone {
+    /* Adiciona padding extra para evitar conflitos com a barra inferior */
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+  
+  /* Quando o teclado estiver visível em iOS */
+  .keyboard-visible {
+    /* Ajusta o layout quando o teclado está visível */
+    padding-bottom: 0 !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+  
+  /* Classe para aplicar aos elementos scrolláveis quando ativos */
+  .active-scroll {
+    /* Aumenta a suavidade da rolagem */
+    scroll-behavior: smooth;
+    /* Melhora a performance da rolagem */
+    will-change: scroll-position;
+  }
+  
+  /* Adiciona classes específicas para telas de diferentes tamanhos */
+  @media (max-width: 640px) {
+    .mobile-only {
+      display: block;
+    }
+    
+    .desktop-only {
+      display: none;
+    }
+
+    /* Garante que elementos com rolagem respeitam a altura real em dispositivos móveis */
+    .mobile-scroll-container {
+      height: calc(var(--vh, 1vh) * 100 - 130px); /* Subtrai altura do header (64px) e footer (66px) */
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+  }
+  
+  @media (min-width: 641px) {
+    .mobile-only {
+      display: none;
+    }
+    
+    .desktop-only {
+      display: block;
+    }
+  }
+  
+  /* Corrige o posicionamento dos inputs em dispositivos iOS */
+  input, textarea, select {
+    font-size: 16px; /* Evita zoom automático em iOS */
+    transform: translateZ(0); /* Ajuda a evitar problemas de renderização */
+  }
+
+  /* Animações de transição otimizadas para iOS */
+  @keyframes ios-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes ios-slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes ios-scale-in {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  /* Utilitários para animação */
+  .ios-fade {
+    animation: ios-fade-in 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  .ios-slide-up {
+    animation: ios-slide-up 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  .ios-scale {
+    animation: ios-scale-in 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  /* Animações melhoradas para o chat */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slide-in-bottom {
+    from { 
+      transform: translateY(15px);
+      opacity: 0;
+    }
+    to { 
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-left {
+    from { 
+      transform: translateX(-15px);
+      opacity: 0;
+    }
+    to { 
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-right {
+    from { 
+      transform: translateX(15px);
+      opacity: 0;
+    }
+    to { 
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse-subtle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes bounce-in {
+    0% { transform: scale(0.85); opacity: 0; }
+    70% { transform: scale(1.03); opacity: 1; }
+    90% { transform: scale(0.98); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-slide-in-bottom {
+    animation: slide-in-bottom 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-slide-in-left {
+    animation: slide-in-left 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-bounce-in {
+    animation: bounce-in 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+  
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s ease-in-out infinite;
+  }
+  
+  /* Estilos específicos para a página do assistente */
+  .assistant-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .assistant-header {
+    position: relative;
+    z-index: 20;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .assistant-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: calc(100vh - var(--header-height) - var(--bottom-nav-height));
+  }
+  
+  .assistant-messages-container {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 120px;
+  }
+  
+  /* Adicionar variável CSS para alturas das barras de navegação */
+  :root {
+    --bottom-nav-height: 60px;
+    --header-height: 152px;
+  }
+  
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .assistant-input-container {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    border-top: 1px solid #eaeaea;
+    padding: 12px 16px;
+    z-index: 10;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  
+  .animate-slide-in {
+    animation: slide-in-bottom 0.3s ease forwards;
+  }
+  
+  .animate-bounce-in {
+    animation: bounce-in 0.4s ease forwards;
+  }
+
+  /* Efeito de pressionamento para botões otimizado para iOS */
+  .tap-highlight {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tap-highlight::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: currentColor;
+    opacity: 0;
+    border-radius: inherit;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .tap-highlight:active::after {
+    opacity: 0.1;
+  }
+
+  /* Usar hardware acelerado para scroll e animações */
+  .hardware-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform, opacity;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+  }
+  
+  /* Classes para posicionamento fixo otimizado para iOS */
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Classes para melhorar a performance em dispositivos móveis */
+  .improve-mobile-perf {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+  
+  /* Classe para prevenir problemas com teclado virtual em iOS */
+  .ios-scroll-fix {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+
+  /* Animações para estilo iOS */
+  @keyframes ping-slow {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.8;
+    }
+    70%, 100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ios-float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes ios-pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(var(--ios-primary-rgb, 0, 172, 138), 0.4);
+    }
+    70% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(var(--ios-primary-rgb, 0, 172, 138), 0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(var(--ios-primary-rgb, 0, 172, 138), 0);
+    }
+  }
+
+  @keyframes ios-spinner {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  .animate-ping-slow {
+    animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  .ios-float {
+    animation: ios-float 4s ease-in-out infinite;
+  }
+
+  .ios-pulse {
+    animation: ios-pulse 2s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  }
+
+  .ios-spinner {
+    animation: ios-spinner 1s linear infinite;
+  }
+
+  /* ===== Componentes nativos iOS ===== */
+  
+  /* Botão estilo iOS com física de mola */
+  .ios-button {
+    @apply relative inline-flex items-center justify-center py-3 px-6 rounded-full text-white text-sm font-medium overflow-hidden transition-all;
+    background: linear-gradient(165deg, hsl(var(--primary)), hsl(var(--primary)/0.9));
+    box-shadow: 0 6px 15px -3px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.2),
+                0 0 0 1px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.1);
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+    -webkit-tap-highlight-color: transparent;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    transition-property: transform, background, box-shadow;
+    transition-duration: 0.3s, 0.2s, 0.3s;
+    transition-timing-function: var(--ios-spring), ease, var(--ios-ease);
+  }
+
+  .ios-button:active {
+    transform: scale(0.97) translateY(1px);
+    box-shadow: 0 2px 5px -2px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.2),
+                0 0 0 1px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.15);
+    background: linear-gradient(165deg, hsl(var(--primary)/0.95), hsl(var(--primary)/0.85));
+  }
+
+  /* Botão secundário iOS */
+  .ios-button-secondary {
+    @apply relative inline-flex items-center justify-center py-3 px-6 rounded-full text-sm font-medium overflow-hidden transition-all;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(250, 250, 250, 0.9));
+    color: hsl(var(--primary));
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
+    will-change: transform, box-shadow, background;
+    -webkit-tap-highlight-color: transparent;
+    transition-property: transform, background, box-shadow;
+    transition-duration: 0.3s, 0.2s, 0.3s;
+    transition-timing-function: var(--ios-spring), ease, var(--ios-ease);
+  }
+
+  .ios-button-secondary:active {
+    transform: scale(0.97) translateY(1px);
+    box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.03),
+                0 0 0 1px rgba(0, 0, 0, 0.07);
+    background: linear-gradient(to bottom, rgba(247, 247, 247, 0.95), rgba(242, 242, 242, 0.9));
+  }
+
+  /* Card com estilo iOS */
+  .ios-card {
+    @apply bg-white rounded-2xl p-4 transition-all overflow-hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05),
+                0 4px 12px -4px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(0, 0, 0, 0.03);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+    transition: transform 0.3s var(--ios-spring),
+                box-shadow 0.3s var(--ios-ease);
+  }
+
+  .ios-card-interactive {
+    cursor: pointer;
+  }
+
+  .ios-card-interactive:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+
+  /* Campos de entrada estilo iOS */
+  .ios-input {
+    @apply w-full bg-gray-50/80 text-[16px] py-3 px-4 rounded-xl outline-none transition-all;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) inset;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .ios-input:focus {
+    @apply bg-white;
+    box-shadow: 0 0 0 3px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.15),
+                0 1px 3px rgba(0, 0, 0, 0.02) inset;
+    border-color: hsl(var(--primary));
+  }
+
+  /* Loader estilo iOS */
+  .ios-loader {
+    @apply relative inline-flex rounded-full;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(var(--ios-primary-rgb, 0, 172, 138), 0.15);
+    border-left-color: hsl(var(--primary));
+    animation: ios-spinner 1s linear infinite;
+  }
+
+  /* Botão flutuante estilo iOS */
+  .ios-fab {
+    @apply flex items-center justify-center rounded-full shadow-lg fixed bottom-6 right-6 z-50 transition-all;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(145deg, hsl(var(--primary)), hsl(var(--primary)/0.85));
+    box-shadow: 0 6px 20px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.25),
+                0 2px 8px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.15),
+                0 0 0 1px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.1);
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+    transition: transform 0.3s var(--ios-spring),
+                box-shadow 0.3s var(--ios-ease);
+  }
+
+  .ios-fab:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 8px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.15),
+                0 1px 3px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.1),
+                0 0 0 1px rgba(var(--ios-primary-rgb, 0, 172, 138), 0.15);
+  }
+  
+  /* Estilo de cabeçalho iOS com scroll */
+  .ios-header-scrolled {
+    @apply transition-all duration-300;
+  }
+  
+  /* Item de navegação iOS */
+  .ios-nav-item {
+    @apply relative inline-flex items-center justify-center py-2 px-3 rounded-full text-sm font-medium transition-all;
+    will-change: transform, color;
+    transform: translateZ(0);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: -0.01em;
+  }
+  
+  .ios-nav-item:active {
+    @apply bg-slate-100/50;
+    transform: scale(0.97);
+  }
+  
+  .ios-nav-active {
+    @apply text-primary font-semibold;
+    font-weight: 600;
+    position: relative;
+  }
+  
+  .ios-nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    width: 18px;
+    height: 3px;
+    background-color: hsl(var(--primary));
+    border-radius: 3px;
+    transform: translateX(-50%);
+  }
+  
+  /* Item de menu iOS */
+  .ios-menu-item {
+    @apply relative flex items-center font-medium py-2.5 px-3 rounded-lg;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s var(--ios-ease);
+    will-change: background-color;
+  }
+  
+  .ios-menu-item:active {
+    @apply bg-slate-100/60;
+  }
+  
+  /* Botão do menu iOS */
+  .ios-menu-button {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    position: relative;
+    z-index: 20;
+  }
+  
+  /* Header estilo iOS nativo */
+  .ios-header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: translateZ(0);
+    z-index: 100;
+    transition: all 0.25s var(--ios-ease);
+  }
+  
+  .ios-header-scrolled {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .ios-menu-button:active {
+    @apply bg-slate-100/60;
+    transform: scale(0.92);
+  }
+  
+  /* Barra de abas estilo iOS */
+  .ios-tab-bar {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* Botão de aba iOS */
+  .ios-tab-button:active > div {
+    transform: scale(0.95) translateY(1px);
+  }
+  
+  /* Animações específicas para dispositivos móveis (com aceleração de hardware) */
+  @media (max-width: 640px) {
+    /* Animação para entrada de página - fade in e slide up suave */
+    .mobile-page-enter {
+      animation: page-enter 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      transform: translateZ(0);
+      will-change: transform, opacity;
+    }
+
+    /* Animação para entrada de elementos - usado em listas e componentes */
+    .mobile-item-enter {
+      animation: item-enter 0.25s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      transform: translateZ(0); 
+      will-change: transform, opacity;
+    }
+
+    /* Animação suave para itens clicáveis */
+    .mobile-pressable {
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+      transition: transform 0.15s ease-in-out;
+      will-change: transform;
+    }
+
+    .mobile-pressable:active {
+      transform: scale(0.97);
+    }
+  }
+
+  /* Keyframes para animações específicas de mobile */
+  @keyframes page-enter {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes item-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Componentes móveis otimizados para iOS */
+  .mobile-card-button {
+    @apply bg-white flex flex-col items-center justify-center text-center px-3 py-5 rounded-xl shadow-sm border border-gray-100;
+    @apply transition-all duration-200 transform active:scale-[0.98] active:shadow-inner;
+    @apply hardware-accelerated;
+    will-change: transform, box-shadow;
+  }
+
+  .mobile-card-title {
+    @apply font-medium text-gray-800 text-[15px] mb-0.5;
+  }
+
+  .mobile-card-description {
+    @apply text-xs text-gray-500;
+  }
+  
+  /* Cards para tela inicial */
+  .home-tile {
+    @apply relative p-4 rounded-xl shadow-sm border border-primary/20 bg-white;
+    @apply transition-all duration-200 hover:border-primary/40;
+    @apply hardware-accelerated active:scale-[0.98];
+  }
+  
+  .home-tile-icon {
+    @apply bg-primary/10 text-primary rounded-full p-2.5 inline-flex items-center justify-center mb-2;
+  }
+  
+  .home-tile-title {
+    @apply font-medium text-sm text-gray-900 mb-0.5;
+  }
+  
+  .home-tile-subtitle {
+    @apply text-xs text-gray-500;
+  }
+  
+  /* Cards estilo iOS para recomendações */
+  .ios-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4;
+  }
+  
+  .ios-section-title {
+    @apply text-lg font-semibold text-gray-900 mb-3 flex items-center;
+  }
+}
+/* Estilos para o menu lateral iOS */
+.ios-side-menu {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Estilos para o cabeçalho iOS */
+.ios-header {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}

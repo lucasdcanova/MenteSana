@@ -1,0 +1,117 @@
+/* Estilos minimalistas para chat iOS */
+
+/* Otimizações gerais para iOS */
+.ios-momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: scroll-position;
+}
+
+/* Estilos para fixar corretamente elementos no topo e fundo */
+header.fixed, 
+div.fixed {
+  position: fixed;
+  z-index: 40;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Animações do chat */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-pulse .delay-75 {
+  animation-delay: 75ms;
+}
+
+.animate-pulse .delay-150 {
+  animation-delay: 150ms;
+}
+
+/* Espaçamento para o notch do iPhone e home indicator */
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Aparência das bolhas de chat */
+.message-bubble {
+  border-radius: 18px;
+  position: relative;
+  word-break: break-word;
+  max-width: 85%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.message-bubble-user {
+  background-color: rgba(var(--color-primary), 0.1);
+  border-top-right-radius: 4px;
+  margin-left: auto;
+}
+
+.message-bubble-assistant {
+  background-color: white;
+  border-top-left-radius: 4px;
+}
+
+/* Estilo para input de mensagem */
+input:focus {
+  outline: none;
+}
+
+input, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.input-container {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 -1px 0 rgba(0,0,0,0.1);
+}
+
+/* Animações para indicador de digitação */
+@keyframes blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.animate-blink {
+  animation: blink 1.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Prevenir seleção de texto em botões */
+button {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Otimizações específicas para iOS */
+@supports (-webkit-touch-callout: none) {
+  body {
+    overscroll-behavior-y: none;
+  }
+  
+  .fixed {
+    position: fixed !important;
+  }
+  
+  input, button {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}

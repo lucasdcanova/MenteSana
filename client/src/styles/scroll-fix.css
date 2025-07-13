@@ -1,0 +1,129 @@
+/**
+ * Arquivo com classes e corrigem problemas de rolagem em iOS
+ * Regras específicas para iOS para melhorar a experiência de toque e rolagem
+ */
+
+/* Classe para resolver problemas de rolagem em paginas especificas */
+.emotional-state-page,
+.daily-tip-page {
+  display: block !important;
+  position: absolute !important;
+  top: 60px !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: calc(100vh - 60px - env(safe-area-inset-top, 0px)) !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: none !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 20px) !important;
+  margin: 0 !important;
+  z-index: 1 !important;
+  touch-action: pan-y !important;
+  -webkit-user-drag: none !important;
+  transform: translate3d(0, 0, 0) !important;
+  will-change: scroll-position !important;
+  backface-visibility: hidden !important;
+}
+
+/* Classe para rolagem com momentum em iOS para qualquer elemento */
+.ios-momentum-scroll {
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain !important;
+  position: relative !important;
+  transform: translateZ(0) !important; /* Força aceleração de hardware */
+  will-change: transform !important; /* Avisa o browser sobre propriedades que vão mudar */
+  backface-visibility: hidden !important; /* Evita glitches em iOS */
+  touch-action: pan-y !important;
+  -webkit-user-drag: none !important;
+  min-height: calc(100vh - 60px) !important;
+}
+
+/* Classe para fixar cabeçalhos e rodapés em páginas com rolagem */
+.ios-fixed-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 50 !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  background-color: var(--ios-primary-color) !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ios-fixed-footer {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 50 !important;
+  padding-bottom: env(safe-area-inset-bottom, 10px) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Classe para contêineres de rolagem com margem para cabeçalhos/rodapés fixos */
+.ios-scrollable-content {
+  padding-top: calc(var(--header-height, 60px) + env(safe-area-inset-top, 0px)) !important;
+  padding-bottom: calc(var(--footer-height, 70px) + env(safe-area-inset-bottom, 0px)) !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  height: 100% !important;
+}
+
+/* Corrige a área tocável para botões no iOS */
+.ios-touch-target {
+  min-height: 44px !important; /* Recomendação de tamanho mínimo para área tocável em iOS */
+  min-width: 44px !important;
+}
+
+/* Melhora o comportamento de rolagem em páginas específicas */
+.assistant-page .scrollable-content {
+  padding-bottom: 80px !important; /* Espaço extra para o input fixo */
+}
+
+/* Garante que a área de texto do assistente fique corretamente posicionada */
+.assistant-input-container, .assistant-input-fixed {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding: 10px !important;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 10px)) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+  z-index: 100 !important;
+}
+
+/* Corrige problemas de rolagem em elementos com tamanho específico */
+.fixed-height-container {
+  height: 100% !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.scrollable-inner {
+  height: 100% !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding-bottom: 20px !important;
+}
+
+/* Prevenir "bounce" no Safari iOS */
+.no-bounce {
+  overscroll-behavior-y: none !important;
+  -webkit-overflow-scrolling: auto !important;
+}
+
+/* Classe utilitária para elementos com botão de voltar no topo fixo */
+.has-back-to-top {
+  scroll-padding-bottom: 60px !important;
+}

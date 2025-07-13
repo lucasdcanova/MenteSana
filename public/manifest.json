@@ -1,0 +1,86 @@
+{
+  "name": "MenteSã",
+  "short_name": "MenteSã",
+  "description": "Sua plataforma de saúde mental",
+  "id": "/",
+  "start_url": "/?source=pwa&fullscreen=true",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+  "background_color": "#2a6451",
+  "theme_color": "#2a6451",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["health", "medical", "lifestyle"],
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "icons": [
+    {
+      "src": "/icons/apple-icon-152.svg",
+      "sizes": "152x152",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/apple-icon-167.svg",
+      "sizes": "167x167",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/apple-icon-180.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot1.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Interface principal"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Diário",
+      "short_name": "Diário",
+      "description": "Acesse seu diário de emoções",
+      "url": "/journal?source=pwa",
+      "icons": [{ "src": "/icons/journal.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Assistente",
+      "short_name": "Assistente",
+      "description": "Converse com sua assistente virtual",
+      "url": "/assistant?source=pwa",
+      "icons": [{ "src": "/icons/assistant.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Consultas",
+      "short_name": "Consultas",
+      "description": "Gerencie suas consultas",
+      "url": "/schedule?source=pwa",
+      "icons": [{ "src": "/icons/calendar.svg", "sizes": "96x96" }]
+    }
+  ],
+  "share_target": {
+    "action": "/share-target",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

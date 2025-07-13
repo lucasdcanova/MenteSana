@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guia de Implementação MindWell</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guia de Implementação MindWell</h1>
+</header>
+<h1 id="guia-de-implementação-mindwell-para-desenvolvedores">Guia de
+Implementação MindWell para Desenvolvedores</h1>
+<h2 id="visão-geral">Visão Geral</h2>
+<p>Este documento serve como guia abrangente para desenvolvedores que
+trabalham no aplicativo MindWell, detalhando a arquitetura, fluxos de
+trabalho, padrões de código e processos para garantir a consistência e
+qualidade do desenvolvimento.</p>
+<h2 id="arquitetura-do-sistema">Arquitetura do Sistema</h2>
+<h3 id="stack-tecnológico">Stack Tecnológico</h3>
+<h4 id="frontend-ios-nativo">Frontend (iOS Nativo)</h4>
+<ul>
+<li><strong>Linguagem</strong>: Swift 5.9+</li>
+<li><strong>Frameworks</strong>:
+<ul>
+<li>SwiftUI para interfaces modernas</li>
+<li>UIKit para componentes complexos</li>
+<li>Combine para programação reativa</li>
+<li>Core Data para persistência local</li>
+</ul></li>
+</ul>
+<h4 id="backend">Backend</h4>
+<ul>
+<li><strong>Linguagem</strong>: TypeScript 5.0+</li>
+<li><strong>Runtime</strong>: Node.js 20+</li>
+<li><strong>Frameworks</strong>:
+<ul>
+<li>Express.js para API RESTful</li>
+<li>Socket.io para comunicação em tempo real</li>
+<li>Drizzle ORM para acesso ao banco de dados</li>
+<li>Passport.js para autenticação</li>
+</ul></li>
+</ul>
+<h4 id="banco-de-dados">Banco de Dados</h4>
+<ul>
+<li>PostgreSQL 15+ como banco de dados principal</li>
+<li>Redis para cache e gerenciamento de sessões</li>
+</ul>
+<h4 id="serviços-em-nuvem">Serviços em Nuvem</h4>
+<ul>
+<li>AWS para infraestrutura</li>
+<li>OpenAI GPT-4o para processamento de linguagem natural</li>
+<li>Twilio para videoconferência</li>
+<li>Stripe para processamento de pagamentos</li>
+</ul>
+<h3 id="estrutura-de-diretórios">Estrutura de Diretórios</h3>
+<h4 id="aplicação-ios">Aplicação iOS</h4>
+<pre><code>MindWell/
+├── App/
+│   ├── AppDelegate.swift
+│   └── SceneDelegate.swift
+├── Features/
+│   ├── Authentication/
+│   ├── Journal/
+│   ├── TherapySessions/
+│   ├── Assistant/
+│   └── ...
+├── Core/
+│   ├── Networking/
+│   ├── Storage/
+│   ├── UIComponents/
+│   └── Utilities/
+├── Resources/
+│   ├── Assets.xcassets
+│   ├── Localizable.strings
+│   └── ...
+└── Supporting/
+    ├── Info.plist
+    └── ...</code></pre>
+<h4 id="backend-1">Backend</h4>
+<pre><code>server/
+├── index.ts            # Ponto de entrada
+├── routes.ts           # Definição de rotas
+├── vite.ts             # Configuração do Vite
+├── auth.ts             # Lógica de autenticação
+├── storage.ts          # Interface de armazenamento
+├── db.ts               # Configuração do banco de dados
+├── middlewares/        # Middlewares Express
+├── routes/             # Implementações de rotas
+├── utils/              # Utilitários
+└── validators/         # Validadores de entrada</code></pre>
+<h2 id="fluxos-de-trabalho-de-desenvolvimento">Fluxos de Trabalho de
+Desenvolvimento</h2>
+<h3 id="configuração-do-ambiente">Configuração do Ambiente</h3>
+<ol type="1">
+<li><p><strong>Requisitos</strong>:</p>
+<ul>
+<li>Node.js 20+</li>
+<li>npm 9+</li>
+<li>PostgreSQL 15+</li>
+<li>Swift 5.9+ e Xcode 15+ (apenas desenvolvimento iOS)</li>
+</ul></li>
+<li><p><strong>Instalação do Backend</strong>:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/mindwell-health/mindwell-app.git</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> mindwell-app</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .env.example .env</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Configure as variáveis de ambiente</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div></li>
+<li><p><strong>Instalação do Frontend iOS</strong>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ios</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pod</span> install</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> MindWell.xcworkspace</span></code></pre></div></li>
+</ol>
+<h3 id="processo-de-desenvolvimento">Processo de Desenvolvimento</h3>
+<ol type="1">
+<li><strong>Fluxo de Trabalho Git</strong>:
+<ul>
+<li>Branch <code>main</code> para código estável</li>
+<li>Branch <code>develop</code> para integrações contínuas</li>
+<li>Branches de feature nomeadas como
+<code>feature/nome-da-funcionalidade</code></li>
+<li>Branches de bugfix nomeadas como
+<code>bugfix/nome-do-bug</code></li>
+<li>Pull Requests obrigatórios para todas as mudanças</li>
+</ul></li>
+<li><strong>Ciclo de Desenvolvimento</strong>:
+<ul>
+<li>Criar branch a partir de <code>develop</code></li>
+<li>Implementar e testar localmente</li>
+<li>Escrever/atualizar testes</li>
+<li>Solicitar Pull Request</li>
+<li>Code review por pelo menos um desenvolvedor</li>
+<li>Merge para <code>develop</code> após aprovação</li>
+</ul></li>
+<li><strong>Releases</strong>:
+<ul>
+<li>Criar branch <code>release/vX.Y.Z</code> a partir de
+<code>develop</code></li>
+<li>Realizar testes finais</li>
+<li>Merge para <code>main</code> e tag com número da versão</li>
+<li>Merge de volta para <code>develop</code></li>
+</ul></li>
+</ol>
+<h2 id="padrões-de-código">Padrões de Código</h2>
+<h3 id="typescript-backend">TypeScript (Backend)</h3>
+<ol type="1">
+<li><p><strong>Estilo de Código</strong>:</p>
+<ul>
+<li>Espaços, não tabs (2 espaços)</li>
+<li>Ponto e vírgula no final de cada linha</li>
+<li>Aspas simples para strings</li>
+<li>Interface para modelos de dados</li>
+</ul></li>
+<li><p><strong>Estrutura</strong>:</p>
+<ul>
+<li>Uso de classes ou funções puras quando apropriado</li>
+<li>Interface para contratos de serviço</li>
+<li>Tipagem explícita para parâmetros e retornos</li>
+</ul></li>
+<li><p><strong>Exemplo</strong>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> UserRequest {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  username<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  email<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  password<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AuthService {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">async</span> <span class="fu">registerUser</span>(userData<span class="op">:</span> UserRequest)<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>User<span class="op">&gt;</span> {</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Implementação</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ol>
+<h3 id="swift-frontend-ios">Swift (Frontend iOS)</h3>
+<ol type="1">
+<li><p><strong>Estilo de Código</strong>:</p>
+<ul>
+<li>Espaços, não tabs (4 espaços)</li>
+<li>Swift Style Guide da Apple como referência</li>
+<li>Comentários de documentação para APIs públicas</li>
+</ul></li>
+<li><p><strong>Estrutura</strong>:</p>
+<ul>
+<li>MVVM (Model-View-ViewModel) como padrão de arquitetura</li>
+<li>Combine para bindings e fluxos de dados reativos</li>
+<li>Protocolos para contratos de serviço</li>
+<li>Injeção de dependência para facilitar testes</li>
+</ul></li>
+<li><p><strong>Exemplo</strong>:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode swift"><code class="sourceCode swift"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> JournalEntry<span class="op">:</span> <span class="dt">Identifiable</span><span class="op">,</span> <span class="dt">Codable</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="va">id</span><span class="op">:</span> UUID</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="va">content</span><span class="op">:</span> String</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="va">mood</span><span class="op">:</span> String</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="va">date</span><span class="op">:</span> Date</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> JournalViewModel<span class="op">:</span> <span class="dt">ObservableObject</span> <span class="op">{</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Published</span> <span class="kw">var</span> <span class="va">entries</span><span class="op">:</span> <span class="op">[</span>JournalEntry<span class="op">]</span> <span class="op">=</span> <span class="op">[]</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">let</span> <span class="va">apiService</span><span class="op">:</span> APIServiceProtocol</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">init</span><span class="op">(</span>apiService<span class="op">:</span> APIServiceProtocol<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>apiService <span class="op">=</span> apiService</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="fu">loadEntries</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Implementação</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ol>
+<h3 id="api-restful">API RESTful</h3>
+<ol type="1">
+<li><strong>Padrões de URL</strong>:
+<ul>
+<li>Recursos no plural: <code>/users</code>,
+<code>/journal-entries</code></li>
+<li>Parâmetros de consulta para filtragem e paginação</li>
+<li>Aninhamento limitado a dois níveis:
+<code>/users/:id/sessions</code></li>
+</ul></li>
+<li><strong>Respostas</strong>:
+<ul>
+<li>Formato JSON consistente</li>
+<li>Códigos HTTP apropriados</li>
+<li>Envelope de resposta padronizado:
+<code>{ success, data, error }</code></li>
+</ul></li>
+<li><strong>Versionamento</strong>:
+<ul>
+<li>Prefixo de versão na URL: <code>/v1/users</code></li>
+<li>Verificação de compatibilidade no cliente</li>
+</ul></li>
+</ol>
+<h2 id="implementação-de-funcionalidades-principais">Implementação de
+Funcionalidades Principais</h2>
+<h3 id="autenticação-e-autorização">Autenticação e Autorização</h3>
+<ol type="1">
+<li><p><strong>Fluxo de Autenticação</strong>:</p>
+<ul>
+<li>Login/registro usando API RESTful</li>
+<li>Tokenização via HMAC para segurança</li>
+<li>Armazenamento seguro de tokens no Keychain (iOS)</li>
+<li>Atualização automática de token expirado</li>
+</ul></li>
+<li><p><strong>Implementação Backend</strong>:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Exemplo simplificado</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">post</span>(<span class="st">&#39;/api/login&#39;</span><span class="op">,</span> <span class="kw">async</span> (req<span class="op">,</span> res) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { username<span class="op">,</span> password } <span class="op">=</span> req<span class="op">.</span><span class="at">body</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> user <span class="op">=</span> <span class="cf">await</span> storage<span class="op">.</span><span class="fu">getUserByUsername</span>(username)<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>user <span class="op">||</span> <span class="op">!</span>(<span class="cf">await</span> <span class="fu">comparePasswords</span>(password<span class="op">,</span> user<span class="op">.</span><span class="at">password</span>))) {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> res<span class="op">.</span><span class="fu">status</span>(<span class="dv">401</span>)<span class="op">.</span><span class="fu">json</span>({</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        success<span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        error<span class="op">:</span> { message<span class="op">:</span> <span class="st">&#39;Credenciais inválidas&#39;</span> }</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> token <span class="op">=</span> <span class="fu">generateToken</span>(user)<span class="op">;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res<span class="op">.</span><span class="fu">json</span>({</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      success<span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      data<span class="op">:</span> { user<span class="op">,</span> token }</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (error) {</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Tratamento de erro</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div></li>
+<li><p><strong>Implementação iOS</strong>:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode swift"><code class="sourceCode swift"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">login</span><span class="op">(</span><span class="va">username</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span> <span class="va">password</span><span class="op">:</span> <span class="dt">String</span><span class="op">)</span> <span class="fu">async</span> <span class="kw">throws</span> -&gt; <span class="fu">User</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="va">credentials</span> <span class="op">=</span> LoginCredentials<span class="op">(</span>username<span class="op">:</span> username<span class="op">,</span> password<span class="op">:</span> password<span class="op">)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="va">response</span><span class="op">:</span> APIResponse<span class="op">&lt;</span>AuthResponse<span class="op">&gt;</span> <span class="op">=</span> <span class="cf">try</span> <span class="cf">await</span> apiClient<span class="op">.</span>post<span class="op">(</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        endpoint<span class="op">:</span> <span class="st">&quot;login&quot;</span><span class="op">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        body<span class="op">:</span> credentials</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">guard</span> <span class="kw">let</span> <span class="va">token</span> <span class="op">=</span> response<span class="op">.</span>data<span class="op">?.</span>token<span class="op">,</span> <span class="kw">let</span> <span class="va">user</span> <span class="op">=</span> response<span class="op">.</span>data<span class="op">?.</span>user <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> AuthError<span class="op">.</span>invalidResponse</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Armazenar token no Keychain</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    tokenManager<span class="op">.</span>storeToken<span class="op">(</span>token<span class="op">)</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> user</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ol>
+<h3 id="diário-emocional">Diário Emocional</h3>
+<ol type="1">
+<li><p><strong>Estrutura de Dados</strong>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> JournalEntry {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  id<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  userId<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  content<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  mood<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  tags<span class="op">:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  createdAt<span class="op">:</span> <span class="bu">Date</span><span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  analysis<span class="op">?:</span> {</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    sentimentScore<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    dominantEmotions<span class="op">:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    summary<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p><strong>Fluxo de Processamento</strong>:</p>
+<ul>
+<li>Usuário cria entrada no aplicativo iOS</li>
+<li>Dados são enviados para a API backend</li>
+<li>Backend armazena entrada no banco de dados</li>
+<li>Tarefa assíncrona envia conteúdo para análise da OpenAI</li>
+<li>Resultados da análise são armazenados e associados à entrada</li>
+<li>Cliente recebe notificação de análise completa via WebSocket</li>
+</ul></li>
+<li><p><strong>Integração com IA</strong>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">analyzeJournalEntry</span>(entry<span class="op">:</span> JournalEntry)<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>JournalAnalysis<span class="op">&gt;</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prompt <span class="op">=</span> <span class="vs">`</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="vs">    Analise o seguinte texto de diário e identifique:</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="vs">    1. Emoções dominantes (lista de 1-3 emoções)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="vs">    2. Pontuação de sentimento (de -1 a 1)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="vs">    3. Resumo curto (3-5 frases)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="vs">    Texto: &quot;</span><span class="sc">${</span>entry<span class="op">.</span><span class="at">content</span><span class="sc">}</span><span class="vs">&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="vs">    Responda em formato JSON com as chaves: dominantEmotions, sentimentScore, summary.</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span><span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> completion <span class="op">=</span> <span class="cf">await</span> openai<span class="op">.</span><span class="at">chat</span><span class="op">.</span><span class="at">completions</span><span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    model<span class="op">:</span> <span class="st">&quot;gpt-4o&quot;</span><span class="op">,</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    messages<span class="op">:</span> [</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      { role<span class="op">:</span> <span class="st">&quot;system&quot;</span><span class="op">,</span> content<span class="op">:</span> <span class="st">&quot;Você é um assistente especializado em análise emocional.&quot;</span> }<span class="op">,</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      { role<span class="op">:</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> content<span class="op">:</span> prompt }</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    response_format<span class="op">:</span> { type<span class="op">:</span> <span class="st">&quot;json_object&quot;</span> }</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(completion<span class="op">.</span><span class="at">choices</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">message</span><span class="op">.</span><span class="at">content</span>)<span class="op">;</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ol>
+<h3 id="assistente-virtual-sana">Assistente Virtual (Sana)</h3>
+<ol type="1">
+<li><p><strong>Estrutura de Conversação</strong>:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> ChatMessage {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  id<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  userId<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  role<span class="op">:</span> <span class="st">&#39;user&#39;</span> <span class="op">|</span> <span class="st">&#39;assistant&#39;</span><span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  content<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  timestamp<span class="op">:</span> <span class="bu">Date</span><span class="op">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p><strong>Fluxo de Interação</strong>:</p>
+<ul>
+<li>Usuário envia mensagem para o assistente</li>
+<li>Backend processa a mensagem com dados de contexto</li>
+<li>IA gera resposta personalizada</li>
+<li>Resposta é enviada de volta para o cliente</li>
+<li>Mensagens são armazenadas para continuidade de contexto</li>
+</ul></li>
+<li><p><strong>Gestão de Contexto</strong>:</p>
+<ul>
+<li>Histórico recente de mensagens</li>
+<li>Estado emocional atual do usuário</li>
+<li>Entradas recentes do diário (quando relevante)</li>
+<li>Preferências do usuário</li>
+<li>Sessões recentes com terapeutas</li>
+</ul></li>
+<li><p><strong>Implementação de Prompts</strong>:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">generateAssistantResponse</span>(userId<span class="op">:</span> <span class="dt">number</span><span class="op">,</span> messageContent<span class="op">:</span> <span class="dt">string</span>)<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Obter informações contextuais</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> user <span class="op">=</span> <span class="cf">await</span> storage<span class="op">.</span><span class="fu">getUser</span>(userId)<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> recentMessages <span class="op">=</span> <span class="cf">await</span> storage<span class="op">.</span><span class="fu">getChatMessagesByUser</span>(userId<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> emotionalState <span class="op">=</span> <span class="cf">await</span> storage<span class="op">.</span><span class="fu">getEmotionalState</span>(userId)<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lastJournalEntry <span class="op">=</span> <span class="cf">await</span> storage<span class="op">.</span><span class="fu">getLastJournalEntry</span>(userId)<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Estruturar prompt com informações contextuais</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> systemPrompt <span class="op">=</span> <span class="vs">`</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="vs">    Você é Sana, uma assistente de bem-estar emocional empática e solidária.</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="vs">    Dados do usuário:</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="vs">    - Nome: </span><span class="sc">${</span>user<span class="op">.</span><span class="at">firstName</span><span class="sc">}</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="vs">    - Estado emocional atual: </span><span class="sc">${</span>emotionalState<span class="op">?.</span><span class="at">currentState</span> <span class="op">||</span> <span class="st">&#39;desconhecido&#39;</span><span class="sc">}</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="vs">    - Emoção dominante: </span><span class="sc">${</span>emotionalState<span class="op">?.</span><span class="at">dominantEmotion</span> <span class="op">||</span> <span class="st">&#39;desconhecida&#39;</span><span class="sc">}</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="vs">    Diretrizes:</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="vs">    1. Seja empática e compreensiva</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="vs">    2. Forneça suporte emocional e validação</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="vs">    3. Sugira estratégias de enfrentamento baseadas em evidências</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="vs">    4. Evite diagnósticos médicos ou psicológicos</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="vs">    5. Encoraje a busca por ajuda profissional quando necessário</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="vs">    6. Responda em português do Brasil com tom acolhedor e respeitoso</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span><span class="op">;</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Preparar histórico de mensagens</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> messages <span class="op">=</span> [</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    { role<span class="op">:</span> <span class="st">&quot;system&quot;</span><span class="op">,</span> content<span class="op">:</span> systemPrompt }<span class="op">,</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>recentMessages<span class="op">.</span><span class="fu">map</span>(msg <span class="kw">=&gt;</span> ({</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>      role<span class="op">:</span> msg<span class="op">.</span><span class="at">role</span> <span class="im">as</span> <span class="st">&#39;user&#39;</span> <span class="op">|</span> <span class="st">&#39;assistant&#39;</span><span class="op">,</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>      content<span class="op">:</span> msg<span class="op">.</span><span class="at">content</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">,</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    { role<span class="op">:</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> content<span class="op">:</span> messageContent }</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Fazer chamada à API</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> completion <span class="op">=</span> <span class="cf">await</span> openai<span class="op">.</span><span class="at">chat</span><span class="op">.</span><span class="at">completions</span><span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    model<span class="op">:</span> <span class="st">&quot;gpt-4o&quot;</span><span class="op">,</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    messages<span class="op">,</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">:</span> <span class="dv">500</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> completion<span class="op">.</span><span class="at">choices</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">message</span><span class="op">.</span><span class="at">content</span><span class="op">;</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ol>
+<h3 id="sessões-com-terapeutas">Sessões com Terapeutas</h3>
+<ol type="1">
+<li><p><strong>Agendamento</strong>:</p>
+<ul>
+<li>Usuário solicita disponibilidade do terapeuta</li>
+<li>Backend verifica slots disponíveis</li>
+<li>Usuário seleciona horário e confirma</li>
+<li>Backend reserva o slot e notifica o terapeuta</li>
+<li>Pagamento/débito de crédito processado</li>
+<li>Sessão é confirmada e adicionada aos calendários</li>
+</ul></li>
+<li><p><strong>Videoconferência</strong>:</p>
+<ul>
+<li>Backend cria sala Twilio para a sessão</li>
+<li>Tokens de acesso são gerados para ambos os participantes</li>
+<li>Cliente se conecta usando SDK Twilio Video</li>
+<li>Metadados da sessão são atualizados em tempo real</li>
+<li>Após a sessão, terapeuta pode adicionar notas</li>
+</ul></li>
+<li><p><strong>Implementação de Sala Virtual</strong>:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">createVideoRoom</span>(sessionId<span class="op">:</span> <span class="dt">number</span>)<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span>VideoRoomCredentials<span class="op">&gt;</span> {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> session <span class="op">=</span> <span class="cf">await</span> storage<span class="op">.</span><span class="fu">getSession</span>(sessionId)<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>session) {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">&#39;Sessão não encontrada&#39;</span>)<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Criar sala Twilio</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> room <span class="op">=</span> <span class="cf">await</span> twilioClient<span class="op">.</span><span class="at">video</span><span class="op">.</span><span class="at">rooms</span><span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    uniqueName<span class="op">:</span> <span class="vs">`mindwell-session-</span><span class="sc">${</span>sessionId<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    type<span class="op">:</span> <span class="st">&#39;group&#39;</span><span class="op">,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    statusCallback<span class="op">:</span> <span class="vs">`</span><span class="sc">${</span>config<span class="op">.</span><span class="at">apiBaseUrl</span><span class="sc">}</span><span class="vs">/webhooks/twilio/room-status`</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Gerar tokens para participantes</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> patientToken <span class="op">=</span> <span class="cf">await</span> twilioClient<span class="op">.</span><span class="at">tokens</span><span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    identity<span class="op">:</span> <span class="vs">`patient-</span><span class="sc">${</span>session<span class="op">.</span><span class="at">userId</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    room<span class="op">:</span> room<span class="op">.</span><span class="at">uniqueName</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> therapistToken <span class="op">=</span> <span class="cf">await</span> twilioClient<span class="op">.</span><span class="at">tokens</span><span class="op">.</span><span class="fu">create</span>({</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    identity<span class="op">:</span> <span class="vs">`therapist-</span><span class="sc">${</span>session<span class="op">.</span><span class="at">therapistId</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    room<span class="op">:</span> room<span class="op">.</span><span class="at">uniqueName</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Atualizar status da sessão</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> storage<span class="op">.</span><span class="fu">updateSession</span>(sessionId<span class="op">,</span> { status<span class="op">:</span> <span class="st">&#39;in-progress&#39;</span><span class="op">,</span> roomSid<span class="op">:</span> room<span class="op">.</span><span class="at">sid</span> })<span class="op">;</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Retornar credenciais</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    roomSid<span class="op">:</span> room<span class="op">.</span><span class="at">sid</span><span class="op">,</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    roomName<span class="op">:</span> room<span class="op">.</span><span class="at">uniqueName</span><span class="op">,</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    patientToken<span class="op">:</span> patientToken<span class="op">.</span><span class="at">token</span><span class="op">,</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    therapistToken<span class="op">:</span> therapistToken<span class="op">.</span><span class="at">token</span><span class="op">,</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    expiresAt<span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(<span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>() <span class="op">+</span> <span class="dv">3600000</span>) <span class="co">// 1 hora</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ol>
+<h2 id="otimizações-e-melhores-práticas">Otimizações e Melhores
+Práticas</h2>
+<h3 id="performance">Performance</h3>
+<ol type="1">
+<li><strong>Servidor</strong>:
+<ul>
+<li>Implementação de cache em vários níveis</li>
+<li>Processamento assíncrono de tarefas demoradas</li>
+<li>Agrupamento de consultas ao banco de dados</li>
+<li>Validação e transformação eficiente de dados</li>
+</ul></li>
+<li><strong>Cliente iOS</strong>:
+<ul>
+<li>Carregamento lazy de recursos e imagens</li>
+<li>Cache local para dados frequentemente acessados</li>
+<li>Renderização otimizada de listas longas</li>
+<li>Gestão eficiente de ciclo de vida de views</li>
+</ul></li>
+</ol>
+<h3 id="segurança">Segurança</h3>
+<ol type="1">
+<li><strong>Autenticação e Autorização</strong>:
+<ul>
+<li>Tokens JWT com HMAC para autenticação</li>
+<li>Verificação de permissões baseada em função</li>
+<li>Sanitização de todas as entradas do usuário</li>
+<li>Proteção contra ataques comuns (XSS, CSRF, injeção SQL)</li>
+</ul></li>
+<li><strong>Dados Sensíveis</strong>:
+<ul>
+<li>Criptografia em trânsito (TLS) e em repouso</li>
+<li>Armazenamento seguro de credenciais (Keychain no iOS)</li>
+<li>Mascaramento de informações sensíveis nos logs</li>
+<li>Política de acesso mínimo necessário</li>
+</ul></li>
+</ol>
+<h3 id="testabilidade">Testabilidade</h3>
+<ol type="1">
+<li><strong>Testes Unitários</strong>:
+<ul>
+<li>Cobertura mínima de 80% para lógica de negócios</li>
+<li>Mocking de dependências externas</li>
+<li>Testes isolados e determinísticos</li>
+<li>Execução automatizada no CI/CD</li>
+</ul></li>
+<li><strong>Testes de Integração</strong>:
+<ul>
+<li>API testing completo para endpoints críticos</li>
+<li>Testes de fluxos de usuário end-to-end</li>
+<li>Simulação de condições de erro e latência</li>
+</ul></li>
+<li><strong>Testes de UI</strong>:
+<ul>
+<li>Testes automatizados de componentes de UI</li>
+<li>Testes de acessibilidade</li>
+<li>Validação de comportamento em diferentes tamanhos de tela</li>
+</ul></li>
+</ol>
+<h2 id="monitoramento-e-diagnóstico">Monitoramento e Diagnóstico</h2>
+<h3 id="logging">Logging</h3>
+<ol type="1">
+<li><p><strong>Estrutura de Logs</strong>:</p>
+<ul>
+<li>Formato JSON estruturado</li>
+<li>Níveis de log (DEBUG, INFO, WARN, ERROR)</li>
+<li>Contexto consistente (userId, requestId, etc.)</li>
+<li>Filtragem sensível de dados pessoais</li>
+</ul></li>
+<li><p><strong>Exemplo de Implementação</strong>:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> logger <span class="op">=</span> {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  info<span class="op">:</span> (message<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> context<span class="op">?:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">any</span><span class="op">&gt;</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">JSON</span><span class="op">.</span><span class="fu">stringify</span>({</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>      level<span class="op">:</span> <span class="st">&#39;INFO&#39;</span><span class="op">,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>      timestamp<span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">toISOString</span>()<span class="op">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      message<span class="op">,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span><span class="fu">sanitizeContext</span>(context)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Similar para debug, warn, error</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sanitizeContext</span>(context<span class="op">?:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">any</span><span class="op">&gt;</span>)<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">any</span><span class="op">&gt;</span> {</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>context) <span class="cf">return</span> {}<span class="op">;</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> result <span class="op">=</span> { <span class="op">...</span>context }<span class="op">;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Mascarar dados sensíveis</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (result<span class="op">.</span><span class="at">password</span>) result<span class="op">.</span><span class="at">password</span> <span class="op">=</span> <span class="st">&#39;***&#39;</span><span class="op">;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (result<span class="op">.</span><span class="at">token</span>) result<span class="op">.</span><span class="at">token</span> <span class="op">=</span> <span class="st">&#39;***&#39;</span><span class="op">;</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Etc.</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+</ol>
+<h3 id="métricas">Métricas</h3>
+<ol type="1">
+<li><strong>Métricas Chave</strong>:
+<ul>
+<li>Tempo de resposta da API (p50, p95, p99)</li>
+<li>Taxa de erro por endpoint</li>
+<li>Utilização de recursos (CPU, memória, IO)</li>
+<li>Métricas de negócio (usuários ativos, novas contas, sessões)</li>
+</ul></li>
+<li><strong>Alertas</strong>:
+<ul>
+<li>Taxa de erro acima de limiares específicos</li>
+<li>Tempo de resposta degradado</li>
+<li>Falhas de autenticação anômalas</li>
+<li>Eventos críticos de negócio</li>
+</ul></li>
+</ol>
+<h2 id="processo-de-atualização-e-manutenção">Processo de Atualização e
+Manutenção</h2>
+<h3 id="atualizações-de-backend">Atualizações de Backend</h3>
+<ol type="1">
+<li><strong>Estratégia de Implantação</strong>:
+<ul>
+<li>Implantações blue/green para mitigar riscos</li>
+<li>Migrations de banco de dados sem tempo de inatividade</li>
+<li>Rollback automatizado em caso de falha</li>
+<li>Monitoramento pós-implantação</li>
+</ul></li>
+<li><strong>Ciclo de Manutenção</strong>:
+<ul>
+<li>Janelas semanais para atualizações planejadas</li>
+<li>Atualizações de segurança com prioridade</li>
+<li>Testes de regressão antes da implantação</li>
+<li>Comunicação proativa com a equipe de produto</li>
+</ul></li>
+</ol>
+<h3 id="atualizações-de-cliente-ios">Atualizações de Cliente iOS</h3>
+<ol type="1">
+<li><strong>Estratégia de Lançamento</strong>:
+<ul>
+<li>Lançamentos graduais para grupos de usuários (TestFlight)</li>
+<li>Monitoramento de métricas de crash e ANR</li>
+<li>Estratégia de versão mínima de iOS suportada</li>
+<li>Compatibilidade retroativa com versões anteriores da API</li>
+</ul></li>
+<li><strong>Ciclo de Atualização</strong>:
+<ul>
+<li>Releases principais a cada 4-6 semanas</li>
+<li>Hotfixes conforme necessário</li>
+<li>Conformidade contínua com diretrizes da App Store</li>
+</ul></li>
+</ol>
+<h2 id="recursos-e-documentação">Recursos e Documentação</h2>
+<h3 id="recursos-de-desenvolvimento">Recursos de Desenvolvimento</h3>
+<ul>
+<li>Repositório Git:
+<code>https://github.com/mindwell-health/mindwell-app</code></li>
+<li>Documentação da API: <code>https://api.mindwell.com/docs</code></li>
+<li>Wireframes e Designs: Figma
+(<code>https://figma.com/team/mindwell</code>)</li>
+<li>Backlog e Issues: JIRA
+(<code>https://mindwell.atlassian.net</code>)</li>
+</ul>
+<h3 id="contatos">Contatos</h3>
+<ul>
+<li>Tech Lead: <code>techlead@mindwell.com.br</code></li>
+<li>Equipe de Backend: <code>backend@mindwell.com.br</code></li>
+<li>Equipe de iOS: <code>ios@mindwell.com.br</code></li>
+<li>DevOps: <code>devops@mindwell.com.br</code></li>
+</ul>
+<hr />
+<p><em>Este guia está sujeito a revisões e atualizações contínuas.
+Última atualização: 25 de abril de 2025.</em></p>
+</body>
+</html>

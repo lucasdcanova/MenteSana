@@ -1,0 +1,60 @@
+/**
+ * Estilos especiais para corrigir problemas de rolagem em páginas específicas do iOS
+ * Versão 1.0 - Criado em 23 de Abril de 2025
+ */
+
+/* Contêiner com posicionamento absoluto para páginas específicas que precisam de rolagem própria */
+.scroll-container-absolute {
+  position: absolute;
+  top: 65px; /* Altura do cabeçalho */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wrapper com scroll para conteúdo */
+.ios-scroll-wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  will-change: scroll-position;
+  padding-bottom: 100px; /* Espaço extra no final para evitar que o conteúdo seja cortado */
+}
+
+/* Estilos especiais para a página de Estado Emocional */
+.emotional-state-page {
+  padding-bottom: 100px;
+}
+
+/* Estilos especiais para a página de Dica do Dia */
+.daily-tip-page {
+  padding-bottom: 100px;
+}
+
+/* Correção para iOS momentum scroll */
+.ios-momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  will-change: scroll-position;
+}
+
+/* Correções adicionais para iOS */
+@supports (-webkit-touch-callout: none) {
+  .scroll-container-absolute {
+    /* Correção para barra de navegação em iOS */
+    top: 65px;
+    bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .ios-scroll-wrapper {
+    /* Garantir que o conteúdo não fique atrás da barra de navegação em iOS */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0));
+  }
+}

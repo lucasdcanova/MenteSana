@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "MindWell",
+    "slug": "mindwell",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "../public/mindwell_icon_hd.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "../public/mindwell_icon_hd.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.mindwell"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "../public/mindwell_icon_hd.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "br.com.mindwell"
+    },
+    "web": {
+      "favicon": "../public/mindwell_icon_hd.png"
+    },
+    "plugins": [
+      "expo-updates"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "mindwell-app"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/mindwell-app"
+    }
+  }
+}

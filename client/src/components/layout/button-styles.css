@@ -1,0 +1,24 @@
+.menu-button {
+  background-color: white !important;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.08);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.menu-button:active {
+  background-color: #f8f8f8 !important;
+}
+
+.menu-line {
+  width: 20px;
+  height: 2px;
+  border-radius: 9999px;
+  background-color: #12B76A !important;
+  margin: 1.5px 0;
+}

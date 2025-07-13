@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#2a6451">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Sem conexão - MenteSã</title>
+  <style>
+    :root {
+      --primary: #2a6451;
+      --primary-light: #4ade80;
+      --primary-dark: #1a4d3d;
+      --background: #ffffff;
+      --text: #111827;
+      --secondary-text: #6b7280;
+      --border: #e5e7eb;
+      --safe-top: env(safe-area-inset-top, 0);
+      --safe-bottom: env(safe-area-inset-bottom, 0);
+      --safe-left: env(safe-area-inset-left, 0);
+      --safe-right: env(safe-area-inset-right, 0);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #4ade80;
+        --primary-light: #6ee7a0;
+        --primary-dark: #2a6451;
+        --background: #111827;
+        --text: #f3f4f6;
+        --secondary-text: #9ca3af;
+        --border: #374151;
+      }
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: calc(20px + var(--safe-top)) calc(20px + var(--safe-right)) calc(20px + var(--safe-bottom)) calc(20px + var(--safe-left));
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .logo {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 2rem;
+    }
+    
+    .logo svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--secondary-text);
+      max-width: 320px;
+      margin-bottom: 2rem;
+    }
+    
+    .button {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .button:hover, .button:focus {
+      background-color: var(--primary-dark);
+      outline: none;
+    }
+    
+    .secondary-button {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      border: 1px solid var(--primary);
+      cursor: pointer;
+      margin-top: 1rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .secondary-button:hover, .secondary-button:focus {
+      background-color: rgba(74, 222, 128, 0.1);
+      outline: none;
+    }
+    
+    .offline-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    
+    @media (display-mode: standalone) {
+      .container {
+        padding-top: calc(40px + var(--safe-top));
+      }
+    }
+
+    @media (prefers-reduced-motion) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#4ade80" stroke-width="2"/>
+        <path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8V12C13 12.5523 12.5523 13 12 13C11.4477 13 11 12.5523 11 12V8Z" fill="#4ade80"/>
+        <path d="M11 16C11 15.4477 11.4477 15 12 15C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16Z" fill="#4ade80"/>
+      </svg>
+    </div>
+    
+    <div class="offline-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+      </svg>
+    </div>
+    
+    <h1>Você está offline</h1>
+    <p>Não foi possível conectar à internet. Algumas funcionalidades podem não estar disponíveis no momento.</p>
+    
+    <button class="button" id="retry-button">Tentar novamente</button>
+    <button class="secondary-button" id="open-cached">Acessar conteúdo offline</button>
+  </div>
+  
+  <script>
+    // Detecta quando a conexão é restabelecida
+    function checkOnlineStatus() {
+      if (navigator.onLine) {
+        window.location.reload();
+      }
+    }
+    
+    // Configura verificação de status online
+    window.addEventListener('online', checkOnlineStatus);
+    
+    // Configura o botão de tentar novamente
+    document.getElementById('retry-button').addEventListener('click', function() {
+      window.location.reload();
+    });
+    
+    // Configura o botão de acessar conteúdo offline
+    document.getElementById('open-cached').addEventListener('click', function() {
+      window.location.href = '/';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+/* iOS Scroll Optimization Styles
+ * Estilos avançados para melhorar a experiência de rolagem em dispositivos iOS
+ * e garantir comportamento nativo nas páginas de Estado Emocional e Ajuda do Dia
+ * 
+ * Versão 2.0 - Otimizada para toque e resposta imediata 
+ */
+
+/* Classe base para container com rolagem estilo iOS nativo */
+.ios-native-scroll-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  -webkit-overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  contain: strict;
+  z-index: 1;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: scroll-position;
+}
+
+/* Container específico para páginas de conteúdo sem header fixo */
+.ios-content-scroll-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  -ms-scroll-chaining: none;
+  overscroll-behavior: none;
+}
+
+/* Classe para garantir momentum scrolling estilo iOS nativo */
+.ios-momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: scroll-position;
+  touch-action: pan-y;
+}
+
+/* Classe para o wrapper de conteúdo das páginas de estado emocional e dica do dia */
+.ios-scroll-wrapper {
+  padding-bottom: 30px; /* Espaço extra no fim da página para permitir rolagem completa */
+  padding-top: 5px;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Classe específica para prevenir "bounce" no scroll em iOS */
+.ios-no-bounce {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Aplicação específica para páginas com grande quantidade de conteúdo */
+.emotional-state-page,
+.daily-tip-page {
+  min-height: 100%;
+  padding-bottom: 40px;
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  
+  /* Propriedades de otimização para rolagem suave */
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE e Edge */
+  scrollbar-width: none; /* Firefox */
+  
+  /* Propriedades para evitar seleção de texto durante arrastar */
+  pointer-events: auto;
+  -webkit-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+/* Remover scrollbar visível em WebKit para maior semelhança com iOS nativo */
+.emotional-state-page::-webkit-scrollbar,
+.daily-tip-page::-webkit-scrollbar,
+.ios-momentum-scroll::-webkit-scrollbar,
+.scroll-container-absolute::-webkit-scrollbar {
+  display: none;
+}
+
+/* Melhorar a sensibilidade de toque em controles interativos */
+.emotional-state-page button,
+.daily-tip-page button,
+.emotional-state-page a,
+.daily-tip-page a,
+.emotional-state-page .bg-primary,
+.daily-tip-page .bg-primary {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Aumenta a área de toque sem alterar visual */
+  position: relative;
+}
+
+/* Aumentar área de toque para elementos pequenos */
+.emotional-state-page button::after,
+.daily-tip-page button::after,
+.emotional-state-page a::after,
+.daily-tip-page a::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: -1;
+}
+
+/* Container absoluto para rolagem que preenche toda a tela */
+.scroll-container-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  -webkit-overscroll-behavior: none;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: scroll-position;
+  padding: 0;
+  height: 100%;
+  contain: content;
+}
+
+/* Classes específicas para elementos de UI em touch */
+.ios-touch-target {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/* Aplicar feedback tátil para elementos clicáveis estilo iOS */
+.ios-touch-target:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+/* Classes específicas para melhorar resposta ao toque em cards */
+.emotional-state-page .bg-white,
+.daily-tip-page .bg-white,
+.emotional-state-page .rounded-xl,
+.daily-tip-page .rounded-xl,
+.emotional-state-page .rounded-lg,
+.daily-tip-page .rounded-lg {
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Resposta ao toque nos botões e elementos interativos */
+.emotional-state-page button,
+.daily-tip-page button,
+.emotional-state-page .rounded-full,
+.daily-tip-page .rounded-full {
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  position: relative;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Botões e tag pills com feedback tátil */
+.emotional-state-page button:active,
+.daily-tip-page button:active,
+.emotional-state-page .rounded-full:active,
+.daily-tip-page .rounded-full:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* Aplicar aceleração de hardware a todos elementos na rolagem */
+.ios-momentum-scroll *,
+.scroll-container-absolute * {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Hardware acceleration extrema para todos os elementos da página */
+.hardware-accelerated-extreme {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+  isolation: isolate;
+  contain: layout style paint;
+}
+
+/* Impedir eventos de rolagem de propagar para container pai */
+.ios-events-contained {
+  touch-action: pan-y;
+  pointer-events: auto;
+  overscroll-behavior: contain;
+  -webkit-overscroll-behavior: contain;
+}
+
+/* Regras específicas para Safari */
+@supports (-webkit-touch-callout: none) {
+  .scroll-container-absolute,
+  .ios-momentum-scroll,
+  .emotional-state-page,
+  .daily-tip-page {
+    /* Garantir que o scroll não mostra o "efeito de elástico" no topo e fim da página */
+    overscroll-behavior-y: none;
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Melhorias específicas de momentum para dispositivos iOS */
+  .ios-momentum-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: y proximity;
+  }
+  
+  /* Aplica efeito de card 3D suave no hover/toque em cards principais */
+  .emotional-state-page .bg-white:active,
+  .daily-tip-page .bg-white:active {
+    transform: scale(0.99) translateY(1px);
+    transition: transform 0.2s ease;
+  }
+  
+  /* Adaptar botões para toque em iOS */
+  button, .rounded-full, .rounded-lg {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Otimizar interações em tags */
+  .emotional-state-page [class*="rounded-full"],
+  .daily-tip-page [class*="rounded-full"] {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <style data-vite-theme="" data-inject-first="">:root {
+    --background: 224 100% 82%;
+--foreground: 249 100% 16%;
+--muted: 225 95% 73%;
+--muted-foreground: 249 100% 16%;
+--popover: 223 100% 99%;
+--popover-foreground: 249 100% 16%;
+--card: 223 100% 99%;
+--card-foreground: 249 100% 16%;
+--border: 225 95% 73%;
+--input: 225 95% 73%;
+--primary: 226 100% 74%;
+--primary-foreground: 223 100% 99%;
+--secondary: 224 100% 87%;
+--secondary-foreground: 249 100% 16%;
+--accent: 224 100% 87%;
+--accent-foreground: 249 100% 16%;
+--destructive: 0 84.2% 60.2%;
+--destructive-foreground: 60 9.1% 97.8%;
+--ring: 226 100% 74%;
+--radius: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+      --background: 246 100% 1%;
+--foreground: 223 100% 96%;
+--muted: 229 58% 37%;
+--muted-foreground: 223 100% 96%;
+--popover: 230 75% 13%;
+--popover-foreground: 223 100% 96%;
+--card: 230 75% 13%;
+--card-foreground: 223 100% 96%;
+--border: 229 58% 37%;
+--input: 229 58% 37%;
+--primary: 228 90% 64%;
+--primary-foreground: 223 100% 99%;
+--secondary: 229 58% 37%;
+--secondary-foreground: 223 100% 96%;
+--accent: 229 58% 37%;
+--accent-foreground: 223 100% 96%;
+--destructive: 0 62.8% 30.6%;
+--destructive-foreground: 0 0% 98%;
+--ring: 228 90% 64%;
+--radius: 2rem;
+  }
+}
+.light {
+    --background: 224 100% 82%;
+--foreground: 249 100% 16%;
+--muted: 225 95% 73%;
+--muted-foreground: 249 100% 16%;
+--popover: 223 100% 99%;
+--popover-foreground: 249 100% 16%;
+--card: 223 100% 99%;
+--card-foreground: 249 100% 16%;
+--border: 225 95% 73%;
+--input: 225 95% 73%;
+--primary: 226 100% 74%;
+--primary-foreground: 223 100% 99%;
+--secondary: 224 100% 87%;
+--secondary-foreground: 249 100% 16%;
+--accent: 224 100% 87%;
+--accent-foreground: 249 100% 16%;
+--destructive: 0 84.2% 60.2%;
+--destructive-foreground: 60 9.1% 97.8%;
+--ring: 226 100% 74%;
+--radius: 2rem;
+}
+.dark {
+    --background: 246 100% 1%;
+--foreground: 223 100% 96%;
+--muted: 229 58% 37%;
+--muted-foreground: 223 100% 96%;
+--popover: 230 75% 13%;
+--popover-foreground: 223 100% 96%;
+--card: 230 75% 13%;
+--card-foreground: 223 100% 96%;
+--border: 229 58% 37%;
+--input: 229 58% 37%;
+--primary: 228 90% 64%;
+--primary-foreground: 223 100% 99%;
+--secondary: 229 58% 37%;
+--secondary-foreground: 223 100% 96%;
+--accent: 229 58% 37%;
+--accent-foreground: 223 100% 96%;
+--destructive: 0 62.8% 30.6%;
+--destructive-foreground: 0 0% 98%;
+--ring: 228 90% 64%;
+--radius: 2rem;
+}</style>
+
+    <meta charset="UTF-8" />
+    
+    <!-- Fix para iOS fullscreen (carregado o mais cedo possível) -->
+    <style>
+      /* Estilos específicos para iOS */
+      .ios-device {
+        /* Evita efeito rubber-band no scroll */
+        overscroll-behavior: none;
+      }
+      
+      /* Ajustes para quando a página é adicionada à tela inicial */
+      @media (display-mode: standalone), (display-mode: fullscreen) {
+        body {
+          /* Adiciona padding para área segura em notch/bordas arredondadas */
+          padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+        
+        /* Corrige altura quando teclado aparece */
+        @supports (-webkit-touch-callout: none) {
+          .input-active {
+            padding-bottom: 20vh;
+          }
+        }
+      }
+      
+      /* Otimizações de toque para iOS */
+      .ios-touch-fix {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Aceleração de hardware para animações mais suaves */
+      .hardware-accelerated {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        perspective: 1000;
+        -webkit-perspective: 1000;
+      }
+    </style>
+    
+    <!-- Viewport otimizado para iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no, minimal-ui, shrink-to-fit=no" />
+    
+    <!-- Configurações avançadas para PWA em iOS - otimizado para fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="MenteSã" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    
+    <!-- Para App Store e validação de app iOS -->
+    <meta name="apple-itunes-app" content="app-id=com.mentesa.app" />
+    <meta name="application-name" content="MenteSã" />
+    <meta name="theme-color" content="#2a6451" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a4d3d" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content="Plataforma de saúde mental e bem-estar emocional" />
+    <meta name="format-detection" content="telephone=no, email=no, address=no, date=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Impedir comportamento de hover e atraso no toque para iOS -->
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    
+    <!-- Ícones para iOS -->
+    <link rel="apple-touch-icon" href="/icons/apple-icon-180.svg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180.svg" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-icon-167.svg" />
+    
+    <!-- Telas de inicialização para iOS (atualizadas para os modelos mais recentes) -->
+    <!-- iPad Pro 12.9" (6ª geração) -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-2048-2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <!-- iPad Pro 11" (4ª geração) -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-1668-2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <!-- iPad 10ª geração -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-1536-2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <!-- iPhone 14/15 Pro, iPhone 13 Pro, iPhone 12 Pro -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-1125-2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <!-- iPhone 14/15 Pro Max, iPhone 13 Pro Max, iPhone 12 Pro Max -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-1242-2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <!-- iPhone 11, XR, 11 -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-750-1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <!-- iPhone SE -->
+    <link rel="apple-touch-startup-image" href="/splash/apple-splash-640-1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+    
+    <!-- Script de otimização para PWA iOS -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    
+    <!-- Precarregamento de recursos críticos para performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Estilos inline críticos para evitar FOUC (Flash of Unstyled Content) -->
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        touch-action: manipulation;
+        -webkit-overflow-scrolling: touch;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+             user-select: none;
+        /* Garantindo que a página ocupe toda a área disponível */
+        position: fixed;
+      }
+      #root {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      /* Estilo específico para PWA instalado */
+      @media (display-mode: standalone) {
+        body {
+          padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+      }
+      /* Estilos específicos para iOS em modo PWA */
+      html.ios-pwa {
+        /* Garante altura total da tela em iOS */
+        height: 100vh; 
+        height: -webkit-fill-available;
+        /* Impede que a barra de endereço apareça */
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+      }
+      
+      html.ios-pwa body {
+        /* Impede comportamentos de rolagem que podem acionar a UI */
+        overscroll-behavior: none;
+        /* Força a aplicação a ocupar toda a tela */
+        position: fixed;
+        height: 100%;
+        width: 100%;
+      }
+      
+      /* Garante que não haverá bordas brancas */
+      html.standalone-mode, 
+      html.standalone-mode body,
+      html.standalone-mode #root {
+        background-color: #2a6451;
+      }
+    </style>
+    
+    <title>Mente Sã</title>
+    <script type="module" crossorigin src="/assets/index-DKFI7ZyH.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B4NtwsKS.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Prevenção de contexto iOS para links externos -->
+    
+    <!-- Registro do Service Worker com atualização automática -->
+    
+    <!-- Detecção avançada de modo standalone e fullscreen para iOS -->
+  </body>
+</html>
